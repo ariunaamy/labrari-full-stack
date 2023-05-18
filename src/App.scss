@@ -1,0 +1,65 @@
+// .logo {
+//   height: 6em;
+//   padding: 1.5em;
+//   will-change: filter;
+//   transition: filter 300ms;
+// }
+// .logo:hover {
+//   filter: drop-shadow(0 0 2em #646cffaa);
+// }
+// .logo.react:hover {
+//   filter: drop-shadow(0 0 2em #61dafbaa);
+// }
+
+.app {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+  .sidebar {
+    width: 40vh;
+    background-color: darkgrey;
+    padding: 20px;
+  }
+
+  main {
+    height: 100vh;
+    flex-grow: 1; 
+    background-color: orange;
+    display: grid;
+    grid-template-rows: 1fr 7fr;
+    .main-top{
+      background-color: red;
+    }
+    .main-bottom {
+      background-color: green;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .list {
+      border: 2px solid black;
+    }
+  }
+}
+
+.search-box {
+  background-color: white;
+  height: 60vh;
+  margin: auto;
+  overflow: scroll;
+  text-align: center;
+  padding: 3vh;
+}
+
+.profile-box {
+  background-color: lightgrey;
+  padding: 2vh;
+  .profile-pic {
+    width: 5vh;/* Adjust the size as needed */
+    height: 5vh;
+    border-radius: 50%;
+    background-size: cover;
+  }
+}
+

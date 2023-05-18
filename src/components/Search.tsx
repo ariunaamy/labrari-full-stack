@@ -35,6 +35,7 @@ const Search = () => {
 
     return (
         <div className='search-box'>
+            <h1>find a book</h1>
             <form onSubmit={handleSubmit}>
                 <input type='text' name='search' placeholder='Search a book ...' onChange={handleChange} />
                 <button type='submit'>Search</button>
