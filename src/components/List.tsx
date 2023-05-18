@@ -5,7 +5,7 @@ const List = () => {
    return (
       <div className="list">
         <h1>this is List</h1>
-        <Button/> 
+        <Button value="add"/> 
       </div> 
    );
 };

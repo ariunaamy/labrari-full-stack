@@ -31,6 +31,11 @@
     grid-template-rows: 1fr 7fr;
     .main-top{
       background-color: red;
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      .button {
+        margin: 3vh;
+      }
     }
     .main-bottom {
       background-color: green;

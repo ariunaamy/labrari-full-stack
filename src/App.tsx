@@ -1,7 +1,8 @@
 import Button from 'components/button/Button.tsx'
-import Search from 'components/Search'
+import SideBar from 'components/SideBar'
 import List from 'components/List'
 import Profile from 'components/Profile'
+import Header from 'components/Header'
 import './App.scss'  
 
 
@@ -15,12 +16,10 @@ function App() {
       <div className='app'>
         <div className='sidebar'>
         <Profile/>
-        <Search/>
+        <SideBar/>
         </div>
         <main>
-          <div className='main-top'>
-          <h1>this is top</h1>
-          </div>
+          <Header/>
           <div className='main-bottom'>
             <List/>
             <List/>
