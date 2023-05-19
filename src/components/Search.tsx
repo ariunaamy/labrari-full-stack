@@ -5,12 +5,11 @@ import { useState } from 'react';
 
 const API_KEY = import.meta.env.VITE_API_KEY
 
-const Search = ({setModal, open}) => {
+const Search = ({setModal, open, setList}) => {
     const [book, setBook] = useState(null)
     const [searchQuery, setSearchQuery] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     
-  
 
       const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,6 +33,12 @@ const Search = ({setModal, open}) => {
     // const handleButtonClick = () => {
     //     setModalOpen(true);
     //   };
+    const handleOptionChange = (e) => {
+        const selectedOption = e.target.value;
+        setList(selectedOption)
+    }
+     
+
    
     return (
         <div className='search-box'>
@@ -55,10 +60,18 @@ const Search = ({setModal, open}) => {
                    <br/>
                    <a href={book.volumeInfo.infoLink} alt="link">Buy</a>
                    <br/>
-                   <h1>Welcome to MyComponent</h1>
-                   <Button onClick={()=>setModal(!open)} classtitle="open-modal-button">
-                   Open Modal
-                   </Button>
+                                <div className='select-wrapper'>
+                                    <label htmlFor="modal-select">Add to list: </label>
+                                    <select id="modal-select" className='modal-select' onChange={handleOptionChange}>
+                                        <option value="read">read</option>
+                                        <option value="reading">reading</option>
+                                        <option value="wish">wish list</option>
+                                    </select>
+
+                                </div>
+                                <Button onClick={() =>setModal(!open)} classtitle="open-modal-button">
+                                    Add to List
+                                </Button>
                </div>
            )
        )

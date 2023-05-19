@@ -10,3 +10,5 @@ dotenv.config({ path: '.env' });
 export default defineConfig({
   plugins: [react(),  tsconfigPaths()],
 })
+
+
