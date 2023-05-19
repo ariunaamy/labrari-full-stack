@@ -18,12 +18,14 @@ function App() {
   const [selectedList, setSelectedList] = useState("")
   const [isModalOpen, setModalOpen] = useState(false);
   const [books, setBooks] = useState([])
+  const [chosenBook, setChosenBook] = useState(null)
+
+  console.log(chosenBook)
 
   useEffect(()=>{
     axios
     .get(`${URL}/books`)
     .then((res) =>{
-      console.log(res)
       setBooks(res.data)
     })
     .catch((e)=>{
@@ -31,22 +33,6 @@ function App() {
     })
    
   },[])
-
-  console.log(books.filter(book => book.status === "read"))
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(`{URL}/books`);
-  //       console.log(response.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  
-  //   fetchData();
-  // }, []);
-  
 
 
 
@@ -62,8 +48,8 @@ function App() {
       <div className='app'>
         <div className='sidebar'>
         <Profile/>
-        <Search setModal={setModalOpen} open={isModalOpen} setList={setSelectedList}/>
-        <ModalForm handleModal={handleCloseModal} open={isModalOpen} list={selectedList}/>
+        <Search setModal={setModalOpen} open={isModalOpen} setList={setSelectedList} book={chosenBook} setBook={setChosenBook}/>
+        <ModalForm handleModal={handleCloseModal} open={isModalOpen} list={selectedList} book={chosenBook}/>
         </div>
         <main>
           <Header/>

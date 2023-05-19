@@ -5,8 +5,8 @@ import { useState } from 'react';
 
 const API_KEY = import.meta.env.VITE_API_KEY
 
-const Search = ({setModal, open, setList}) => {
-    const [book, setBook] = useState(null)
+const Search = ({setModal, open, setList, book, setBook}) => {
+    
     const [searchQuery, setSearchQuery] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     
