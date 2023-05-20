@@ -1,45 +1,12 @@
 import { useEffect, useState, useCallback } from 'react';
 import Modal from './Modal';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-interface ChosenBook {
-  volumeInfo: {
-    title: string;
-    authors: string[];
-    imageLinks: {
-      smallThumbnail: string;
-    };
-    publishedDate: string;
-  };
-}
-
-interface Book {
-  title: string;
-  author: string;
-  year_published: number;
-  status: string;
-  reader_notes: string;
-  recommend_to: string;
-}
-
-interface ModalFormProps {
-  handleModal: () => void;
-  isModelOpen: boolean;
-  onSubmit: (book:Book)=>void;
-  list: string;
-  chosenBook: ChosenBook | null;
-}
+import { ChosenBook, Book, ModalFormProps} from 'books.model';
 
 
 
-const ModalForm: React.FC<ModalFormProps> = ({ onSubmit, isModelOpen, handleModal, list, chosenBook }) => {
-  const navigate = useNavigate();
+
+
+const ModalForm: React.FC<ModalFormProps> = ({ onSubmit, isModelOpen, list, chosenBook }) => {
 
   console.log(chosenBook)
 

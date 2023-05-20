@@ -12,8 +12,8 @@ const List: React.FC<ListProps> = ({ listName, books }) => {
   return (
     <div className="list">
       <h1>{listName}</h1>
-      {books.map((book) => {
-        return <p key={book.id}>{book.title}</p>;
+      {books.map((book, index) => {
+        return <p key={index}>{book.title}</p>;
       })}
       {/* <Button value="add"/> */}
     </div>

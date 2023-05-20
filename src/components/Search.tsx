@@ -3,18 +3,9 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Dispatch, SetStateAction } from 'react';
 import { ChosenBook } from 'books.model';
+
 //import Button from './button/Button';
 
-interface Book {
-  volumeInfo: {
-    title: string;
-    authors: string[];
-    imageLinks: {
-      smallThumbnail: string;
-    };
-    infoLink: string;
-  };
-}
 
 
 
@@ -23,7 +14,7 @@ interface SearchProps {
   open: boolean;
   setList: (value: string) => void;
   chosenBook: ChosenBook | null;
-  setChosenBook: Dispatch<SetStateAction<Book | null>>; // Update the type here
+  setChosenBook: Dispatch<SetStateAction<ChosenBook | null>>; // Update the type here
 }
 
 

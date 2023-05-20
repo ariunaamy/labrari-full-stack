@@ -13,12 +13,6 @@ import { Book, ChosenBook, ErrorBoundaryProps } from 'books.model';
 const URL: string = import.meta.env.VITE_API_URL as string;
 const API: string = import.meta.env.VITE_API_URL as string;
 
-
-
-
-
-
-
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, { hasError: boolean }> {
   constructor(props: ErrorBoundaryProps) {
     super(props);

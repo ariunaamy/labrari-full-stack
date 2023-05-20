@@ -1,10 +1,11 @@
+import { ReactNode } from "react";
+
 export interface ErrorBoundaryProps {
     fallback: React.ReactNode;
     children: React.ReactNode;
   }
   
   export interface Book {
-    id?: number;
     title: string;
     author: string;
     year_published: number;
@@ -31,10 +32,26 @@ export interface ErrorBoundaryProps {
       imageLinks: {
         smallThumbnail: string;
       };
-      date_published: string;
+      publishedDate: string;
       infoLink: string;
     };
   }
+
+  export interface ModalProps {
+    onClose?: () => void;
+    children: ReactNode;
+    isOpen: boolean;
+  }
+
+  export interface ModalFormProps {
+    handleModal: () => void;
+    isModelOpen: boolean;
+    onSubmit: (book:Book)=>void;
+    list: string;
+    chosenBook: ChosenBook | null;
+  }
+  
+
 
   
 

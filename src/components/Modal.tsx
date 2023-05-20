@@ -1,11 +1,5 @@
-import { ReactNode } from "react";
+import { ModalProps } from "books.model";
 import "./Modal.scss"
-
-interface ModalProps {
-  onClose?: () => void;
-  children: ReactNode;
-  isOpen: boolean;
-}
 
 const Modal: React.FC<ModalProps> = ({ onClose, isOpen, children }) => {
   if (!isOpen) {
