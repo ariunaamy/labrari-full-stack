@@ -2,6 +2,7 @@ import type { ChangeEvent, FormEvent } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import { Dispatch, SetStateAction } from 'react';
+import { ChosenBook } from 'books.model';
 //import Button from './button/Button';
 
 interface Book {
@@ -21,16 +22,17 @@ interface SearchProps {
   setModal: (value: boolean) => void;
   open: boolean;
   setList: (value: string) => void;
-  book: Book | null;
-  setBook: Dispatch<SetStateAction<Book | null>>; // Update the type here
+  chosenBook: ChosenBook | null;
+  setChosenBook: Dispatch<SetStateAction<Book | null>>; // Update the type here
 }
 
 
 const API_KEY: string = import.meta.env.VITE_API_KEY as string;
 
-const Search: React.FC<SearchProps> = ({ setModal, open, setList, book, setBook }) => {
+const Search: React.FC<SearchProps> = ({ setModal, open, setList, chosenBook, setChosenBook }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,7 +41,7 @@ const Search: React.FC<SearchProps> = ({ setModal, open, setList, book, setBook 
       const response = await axios.get(
         `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&maxResults=1${API_KEY}`
       );
-      setBook(response.data.items[0] || null);
+      setChosenBook(response.data.items[0] || null);
     } catch (error) {
       console.error('Error fetching book:', error);
     }
@@ -65,13 +67,13 @@ const Search: React.FC<SearchProps> = ({ setModal, open, setList, book, setBook 
       <div>
         {isLoading ? (
           <p>Loading ...</p>
-        ) : (  
+        ) : chosenBook && (  
             <div>
-              <h2>{book? book.volumeInfo.title : null}</h2>
-              <p>{book?.volumeInfo.authors[0] ?? "Unknown"}</p>
-              <img src={book?.volumeInfo.imageLinks.smallThumbnail} width="100" alt="Book cover" />
+              <h2>{chosenBook ? chosenBook.volumeInfo.title : null}</h2>
+              <p>{chosenBook ? chosenBook.volumeInfo.authors[0] : null}</p>
+              <img src={chosenBook?.volumeInfo.imageLinks.smallThumbnail} width="100" alt="Book cover" />
               <br />
-              <a href={book?.volumeInfo.infoLink}>Buy</a>
+              <a href={chosenBook?.volumeInfo.infoLink}>Buy</a>
               <br />
               <div className="select-wrapper">
                 <label htmlFor="modal-select">Add to list: </label>

@@ -1,19 +1,14 @@
 import React from 'react';
 //import buttonStyles from 'components/button/Button.module.scss';
 //import Button from "./button/Button";
+import { ListProps } from 'books.model';
 
-interface Book {
-  title: string;
-  id: number;
-}
 
-interface ListProps {
-  listName: string;
-  books: Book[];
-}
+
+ 
 
 const List: React.FC<ListProps> = ({ listName, books }) => {
-   console.log(books)
+ 
   return (
     <div className="list">
       <h1>{listName}</h1>

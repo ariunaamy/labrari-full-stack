@@ -1,7 +1,9 @@
+import { ReactNode } from "react";
 import "./Modal.scss"
 
 interface ModalProps {
-  onClose: () => void;
+  onClose?: () => void;
+  children: ReactNode;
   isOpen: boolean;
 }
 

@@ -1,35 +1,69 @@
-import { useState } from 'react';
-import Search from './Search';
+import { useEffect, useState, useCallback } from 'react';
 import Modal from './Modal';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {Book} from '../App'
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-interface ModalFormProps {
-  handleModal: () => void;
-  open: boolean;
-  list: string;
-  book: Book;
+interface ChosenBook {
+  volumeInfo: {
+    title: string;
+    authors: string[];
+    imageLinks: {
+      smallThumbnail: string;
+    };
+    publishedDate: string;
+  };
 }
 
-const API = import.meta.env.VITE_API_URL;
+interface Book {
+  title: string;
+  author: string;
+  year_published: number;
+  status: string;
+  reader_notes: string;
+  recommend_to: string;
+}
 
-const ModalForm: React.FC<ModalFormProps> = ({ handleModal, open, list, book }) => {
+interface ModalFormProps {
+  handleModal: () => void;
+  isModelOpen: boolean;
+  onSubmit: (book:Book)=>void;
+  list: string;
+  chosenBook: ChosenBook | null;
+}
+
+
+
+const ModalForm: React.FC<ModalFormProps> = ({ onSubmit, isModelOpen, handleModal, list, chosenBook }) => {
   const navigate = useNavigate();
 
-  const [newBook, setNewBook] = useState<Book>({
-    title: book ? book.title : '',
-    author: '',
-    year_published: book ? book.year_published : 0,
-    status: list,
-    reader_notes: '',
-    recommend_to: '',
-  });
+  console.log(chosenBook)
+
+  const getBook = useCallback(
+    function getBook(book:ChosenBook|null):Book{
+      return {
+        title: book ? book.volumeInfo.title : '',
+        author: book ? book.volumeInfo.authors[0] : '',
+        year_published: book ? Number(book.volumeInfo.publishedDate.slice(0,-6)) : 0,
+        status: list,
+        reader_notes: '',
+        recommend_to: '',
+      }
+    }, [list]
+  ) 
+
+  const [newBook, setNewBook] = useState<Book>(getBook(chosenBook));
+
+
+  useEffect(()=>{
+    setNewBook(getBook(chosenBook))
+  },[chosenBook,getBook])
+
+  
 
   function handleTextChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setNewBook({
@@ -40,35 +74,51 @@ const ModalForm: React.FC<ModalFormProps> = ({ handleModal, open, list, book }) 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addBook(newBook);
+    onSubmit(newBook)
   };
 
-  const addBook = (newBook: Book) => {
-    axios
-      .post(`${API}/books`, newBook)
-      .then(() => {
-        navigate('/');
-      })
-      .catch((error) => console.error(error));
-  };
+  
 
-  const modalProps: ModalProps = {
-    isOpen: open,
-    onClose: handleModal,
-  };
 
   return (
     <div>
-      <Modal {...modalProps}>
+      <Modal isOpen={isModelOpen}>
         <form className="list-form" onSubmit={handleSubmit}>
           <label htmlFor="title">Title: </label>
-          <input type="text" value={newBook.title} onChange={handleTextChange} id="title" />
+          <input 
+          type="text"
+           value={newBook.title} 
+           onChange={handleTextChange} 
+           id="title" />
           <label htmlFor="author">Author: </label>
-          <input value={newBook.author} onChange={handleTextChange} id="author" />
+          <input 
+          type='text'
+          value={newBook.author} 
+          onChange={handleTextChange} 
+          id="author" />
+           <label htmlFor="year">Published in: </label>
+          <input 
+          type='number'
+          value={newBook.year_published} 
+          onChange={handleTextChange} 
+          id="year" />
+            <label htmlFor="status">Add to list: </label>
+          <input 
+          type='text'
+          value={newBook.status} 
+          onChange={handleTextChange} 
+          id="status" />
           <label htmlFor="reader_notes">Notes: </label>
-          <textarea value={newBook.reader_notes} onChange={handleTextChange} id="reader_notes" />
+          <textarea 
+          value={newBook.reader_notes} 
+          onChange={handleTextChange} 
+          id="reader_notes" />
           <label htmlFor="recommend_to">Recommend to: </label>
-          <input type="text" value={newBook.recommend_to} onChange={handleTextChange} id="recommend_to" />
+          <input 
+          type="text" 
+          value={newBook.recommend_to} 
+          onChange={handleTextChange} 
+          id="recommend_to" />
           <input type="submit" value="Submit" />
         </form>
       </Modal>
@@ -77,132 +127,3 @@ const ModalForm: React.FC<ModalFormProps> = ({ handleModal, open, list, book }) 
 };
 
 export default ModalForm;
-
-
-// import { useState } from 'react'
-// import Search from './Search'
-// import Modal from './Modal'
-// import { useNavigate } from 'react-router-dom'
-
-// interface Book {
-//   title: string;
-//   author: string;
-//   year_published: number;
-//   status: string;
-//   reader_notes: string;
-//   recommend_to: string;
-// }
-
-// interface ModalFormProps {
-//   handleModal: () => void;
-//   open: boolean;
-//   list: string;
-//   book: object | Book;
-// }
-
-
-
-// const API = import.meta.env.VITE_API_URL
-
-// const ModalForm: React.FC<ModalFormProps> = ({ handleModal, open, list, book }) => {
-
-
-//   // let d = book.volumeInfo.title
-//   console.log(list)
-
-//   const [newBook, setNewBook] = useState({
-//     title: (!book ? "" : book.volumeInfo.title),
-//     author: "",
-//     year_piblished: (!book ? "" : book.volumeInfo.publishedDate),
-//     status: list,
-//     reader_notes: "",
-//     recommend_to: ""
-//   })
-
-//   function handleTextChange(e) {
-//     setNewBook({
-//       ...newBook,
-//       [e.target.id]: e.target.value,
-//     });
-//   }
-
-//   // const handleCheckboxChange = () => {
-//   //   setSupply({ ...supply, in_stock: !supply.in_stock });
-//   // };
-
-
-//   console.log(newBook)
-
-
-//   // let navigate = useNavigate();
-
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     addBook(newBook)
- 
-
-//   }
-
-//   const addBook = (newBook) => {
-//     axios
-//       .post(`${API}/books`, newBook)
-//       .then(
-//         () => {
-//           navigate('/');
-//         },
-//         (error) => console.error(error)
-//       )
-//       .catch((c) => console.warn("catch", c));
-//   };
-
-  
-//   return (
-//     <div>
-    
-//       <Modal isOpen={open} onClose={handleModal}>
-//         {/* <h1>{!book ? "" : book.volumeInfo.title}</h1>
-//         <p>published in {!book ? "" : book.volumeInfo.publishedDate}</p>
-//         <p>by {!book ? "" : book.volumeInfo.authors[0]}</p> */}
-//         <form className='list-form'>
-//           <label htmlFor="title">Title: </label>
-//           <input
-//             type='text'
-//             value={newBook.title}
-//             onChange={handleTextChange}
-//             id="title"
-//           />
-//           <label htmlFor="author">Author: </label>
-//           <input
-//             value={newBook.author}
-//             onChange={handleTextChange}
-//             id="author"
-//           />
-
-//           <label htmlFor="reader_notes">Notes: </label>
-//           <textarea
-//             value={newBook.reader_notes}
-//             onChange={handleTextChange}
-//             id="reader_notes"
-//           />
-//           <label htmlFor="recommend_to">Recommend to: </label>
-//           <input
-//             type='text'
-//             value={newBook.recommend_to}
-//             onChange={handleTextChange}
-//             id="recommend_to"
-//           />
-//           <input type="submit"/>
-//           <br />
-//         </form>
-//       </Modal>
-//     </div>
-//   );
-// };
-
-
-
-// export default ModalForm;
-
-
-
