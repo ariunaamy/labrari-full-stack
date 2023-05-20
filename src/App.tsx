@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ModalForm from 'components/ModalForm';
+import ModalNewForm from 'components/ModalNewForm';
+import ModalEditForm from 'components/ModalEditForm'
 import Search from 'components/Search';
 import Profile from 'components/Profile';
 import Header from 'components/Header';
@@ -10,7 +11,6 @@ import './App.scss';
 import { Book, ChosenBook, ErrorBoundaryProps } from 'books.model';
 
 
-const URL: string = import.meta.env.VITE_API_URL as string;
 const API: string = import.meta.env.VITE_API_URL as string;
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, { hasError: boolean }> {
@@ -40,7 +40,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get<Book[]>(`${URL}/books`)
+      .get<Book[]>(`${API}/books`)
       .then((res) => {
         setBooks(res.data);
       })
@@ -53,6 +53,7 @@ function App() {
     setModalOpen(false);
   };
 
+
   const handleSubmit = (newBook: Book) => {
       axios
         .post(`${API}/books`, newBook)
@@ -63,24 +64,22 @@ function App() {
         .catch((error) => console.error(error));
   }
 
-  console.log(selectedList)
+
   return (
     <ErrorBoundary fallback={<div>Something went wrong.</div>}>
       <div className="app">
         <Router>
           <div className="sidebar">
-            <Profile />
             <Search setModal={setModalOpen} open={isModalOpen} setList={setSelectedList} chosenBook={chosenBook} setChosenBook={setChosenBook} />
-            <ModalForm onSubmit={handleSubmit} handleModal={handleCloseModal} isModelOpen={isModalOpen} list={selectedList} chosenBook={chosenBook} />
+            <ModalNewForm onSubmit={handleSubmit} handleModal={handleCloseModal} isModelOpen={isModalOpen} list={selectedList} chosenBook={chosenBook} />
+            <ModalEditForm onSubmit={handleSubmit} handleModal={handleCloseModal} isModelOpen={isModalOpen} list={selectedList} chosenBook={chosenBook} />
+            <Profile />
           </div>
-          <main>
-            <Header />
-            <div className="main-bottom">
+          <main className="main-bottom">
               <Routes>   
                 <Route path="/" element={<Lists books={books}/>} />
               </Routes>
-            </div>
-          </main>
+          </main>    
         </Router>
       </div>
     </ErrorBoundary>

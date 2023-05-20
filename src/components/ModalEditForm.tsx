@@ -6,9 +6,7 @@ import { ChosenBook, Book, ModalFormProps} from 'books.model';
 
 
 
-const ModalForm: React.FC<ModalFormProps> = ({ onSubmit, isModelOpen, list, chosenBook }) => {
-
-  console.log(chosenBook)
+const ModalEditForm: React.FC<ModalFormProps> = ({ onSubmit, isModelOpen, list, chosenBook }) => {
 
   const getBook = useCallback(
     function getBook(book:ChosenBook|null):Book{
@@ -41,7 +39,8 @@ const ModalForm: React.FC<ModalFormProps> = ({ onSubmit, isModelOpen, list, chos
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(newBook)
+    onSubmit(newBook);
+    window.location.reload();
   };
 
   
@@ -93,4 +92,4 @@ const ModalForm: React.FC<ModalFormProps> = ({ onSubmit, isModelOpen, list, chos
   );
 };
 
-export default ModalForm;
+export default ModalEditForm;

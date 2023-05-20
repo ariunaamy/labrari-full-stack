@@ -18,7 +18,7 @@ interface SearchProps {
 }
 
 
-const API_KEY: string = import.meta.env.VITE_API_KEY as string;
+const GOOGLE_API_KEY: string = import.meta.env.VITE_API_KEY as string;
 
 const Search: React.FC<SearchProps> = ({ setModal, open, setList, chosenBook, setChosenBook }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -30,7 +30,7 @@ const Search: React.FC<SearchProps> = ({ setModal, open, setList, chosenBook, se
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&maxResults=1${API_KEY}`
+        `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&maxResults=1${GOOGLE_API_KEY}`
       );
       setChosenBook(response.data.items[0] || null);
     } catch (error) {
@@ -62,6 +62,10 @@ const Search: React.FC<SearchProps> = ({ setModal, open, setList, chosenBook, se
             <div>
               <h2>{chosenBook ? chosenBook.volumeInfo.title : null}</h2>
               <p>{chosenBook ? chosenBook.volumeInfo.authors[0] : null}</p>
+              <button onClick={() => setModal(!open)} className="open-modal-button">
+                Add to List
+              </button>
+              <br></br>
               <img src={chosenBook?.volumeInfo.imageLinks.smallThumbnail} width="100" alt="Book cover" />
               <br />
               <a href={chosenBook?.volumeInfo.infoLink}>Buy</a>
@@ -74,9 +78,6 @@ const Search: React.FC<SearchProps> = ({ setModal, open, setList, chosenBook, se
                   <option value="wish">wish list</option>
                 </select>
               </div>
-              <button onClick={() => setModal(!open)} className="open-modal-button">
-                Add to List
-              </button>
             </div>
         )}
       </div>

@@ -6,6 +6,7 @@ export interface ErrorBoundaryProps {
   }
   
   export interface Book {
+    id?: number;
     title: string;
     author: string;
     year_published: number;
