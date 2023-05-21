@@ -1,9 +1,13 @@
-**Labrari**
+# Labrari
 
-Labrari provides users with the ability to organize and manage their book collection effectively. Users can categorize books based on their reading status, such as "read," "currently reading," or "wish to read." Additionally, Labrari allows users to add personal notes to each book, enabling them to keep track of their thoughts, highlights, or key takeaways.
+Labrari is a comprehensive full-stack app that empowers users to effectively organize and manage their book collection. With Labrari, users can effortlessly categorize books based on their reading status, whether they are "read," "currently reading," or "wish to read." Moreover, Labrari offers a unique feature that allows users to attach personal notes to each book, enabling them to track their thoughts, highlights, and key takeaways.
 
-Upcoming features of Labrari include the ability for users to recommend books to others, creating a community-driven aspect where users can discover new books based on recommendations from fellow readers. The app fosters engagement and interaction among users by facilitating book recommendations and sharing.
+To facilitate quick searches and provide extensive book research capabilities, Labrari seamlessly integrates with the Google Books API.
 
-Labrari helps users stay organized, gain insights into their reading habits, and explore new books through community recommendations. It promotes a personalized and social reading experience, enhancing the enjoyment and value of reading.
+Exciting upcoming features of Labrari will include a user-to-user book recommendation system, fostering a community-driven environment where book enthusiasts can discover new and intriguing titles based on recommendations from fellow readers. The app actively encourages engagement and interaction among users by facilitating book recommendations and sharing.
 
-Built using **Vite**, **React**, **TypeScript**, **Express**, **Postgres**, and **Sass**, Labrari empowers users to efficiently manage their book collection, document their thoughts, and connect with other book enthusiasts.
+Labrari not only helps users maintain an organized book collection but also offers valuable insights into their reading habits. Additionally, the app encourages exploration by leveraging community recommendations, allowing users to discover new books tailored to their interests. By combining personalization and social interaction, Labrari enhances the overall reading experience, making it more enjoyable and enriching.
+
+This app is developed using a powerful technology stack, which includes **Vite**, **React**, **TypeScript**, **Express**, **Postgres**, and **Sass**. These cutting-edge technologies ensure a robust and seamless user experience while providing a solid foundation for scalability and future enhancements.
+
+Back end Repo: https://github.com/ariunaamy/labrari_back_end
