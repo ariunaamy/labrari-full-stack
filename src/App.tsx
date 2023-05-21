@@ -72,7 +72,6 @@ function App() {
           <div className="sidebar">
             <Search setModal={setModalOpen} open={isModalOpen} setList={setSelectedList} chosenBook={chosenBook} setChosenBook={setChosenBook} />
             <ModalNewForm onSubmit={handleSubmit} handleModal={handleCloseModal} isModelOpen={isModalOpen} list={selectedList} chosenBook={chosenBook} />
-            <ModalEditForm onSubmit={handleSubmit} handleModal={handleCloseModal} isModelOpen={isModalOpen} list={selectedList} chosenBook={chosenBook} />
             <Profile />
           </div>
           <main className="main-bottom">

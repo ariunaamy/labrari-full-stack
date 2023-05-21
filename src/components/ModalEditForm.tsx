@@ -1,51 +1,47 @@
 import { useEffect, useState, useCallback } from 'react';
 import Modal from './Modal';
 import { ChosenBook, Book, ModalFormProps} from 'books.model';
+import axios from 'axios';
+import { API } from 'books.model';
 
 
 
 
+const ModalEditForm: React.FC<ModalFormProps> = ({ onSubmit, book, isModelOpen }) => {
 
-const ModalEditForm: React.FC<ModalFormProps> = ({ onSubmit, isModelOpen, list, chosenBook }) => {
+  const [editedBook, setEditedBook] = useState({
+    title: book.title,
+    author: book.author,
+    year_published: book.year_published,
+    status: book.status,
+    reader_notes: book.notes,
+    recommend_to: book.recommend_to,
+  })
 
-  const getBook = useCallback(
-    function getBook(book:ChosenBook|null):Book{
-      return {
-        title: book ? book.volumeInfo.title : '',
-        author: book ? book.volumeInfo.authors[0] : '',
-        year_published: book ? Number(book.volumeInfo.publishedDate.slice(0,-6)) : 0,
-        status: list,
-        reader_notes: '',
-        recommend_to: '',
-      }
-    }, [list]
-  ) 
+  console.log(book.id)
+     
 
-  const [newBook, setNewBook] = useState<Book>(getBook(chosenBook));
-
-
-  useEffect(()=>{
-    setNewBook(getBook(chosenBook))
-  },[chosenBook,getBook])
-
-  
-
-  function handleTextChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    setNewBook({
-      ...newBook,
+  const  handleTextChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setEditedBook({
+      ...editedBook,
       [e.target.id]: e.target.value,
     });
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(newBook);
+    axios
+         .put(`${API}/books/${book.id}`, editedBook)
+         .then(
+           () => {
+        //   setModalOpen(false)
+   
+         })
+         .catch((error) => console.error(error));
     window.location.reload();
   };
 
   
-
-
   return (
     <div>
       <Modal isOpen={isModelOpen}>
@@ -53,36 +49,36 @@ const ModalEditForm: React.FC<ModalFormProps> = ({ onSubmit, isModelOpen, list, 
           <label htmlFor="title">Title: </label>
           <input 
           type="text"
-           value={newBook.title} 
+           value={editedBook.title} 
            onChange={handleTextChange} 
            id="title" />
           <label htmlFor="author">Author: </label>
           <input 
-          type='text'
-          value={newBook.author} 
+          type="text"
+          value={editedBook.author} 
           onChange={handleTextChange} 
           id="author" />
-           <label htmlFor="year">Published in: </label>
+           <label htmlFor="year_published">Published in: </label>
           <input 
-          type='number'
-          value={newBook.year_published} 
+          type="number"
+          value={editedBook.year_published} 
           onChange={handleTextChange} 
-          id="year" />
+          id="year_published" />
             <label htmlFor="status">Add to list: </label>
           <input 
           type='text'
-          value={newBook.status} 
+          value={editedBook.status} 
           onChange={handleTextChange} 
           id="status" />
           <label htmlFor="reader_notes">Notes: </label>
           <textarea 
-          value={newBook.reader_notes} 
+          value={editedBook.reader_notes} 
           onChange={handleTextChange} 
           id="reader_notes" />
           <label htmlFor="recommend_to">Recommend to: </label>
           <input 
           type="text" 
-          value={newBook.recommend_to} 
+          value={editedBook.recommend_to} 
           onChange={handleTextChange} 
           id="recommend_to" />
           <input type="submit" value="Submit" />

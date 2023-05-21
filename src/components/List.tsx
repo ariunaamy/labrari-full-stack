@@ -4,10 +4,12 @@ import React from 'react';
 import { ListProps } from 'books.model';
 import { useState } from 'react';
 import axios from 'axios';
+import ModalEditForm from './ModalEditForm';
+import { Book } from 'books.model';
+import { API } from 'books.model';
 
 
 
-const API: string = import.meta.env.VITE_API_URL as string;
 
 // const AlertWindow: React.FC<{ onConfirm: () => void }> = ({ onConfirm }) => {
 //    return (
@@ -19,8 +21,24 @@ const API: string = import.meta.env.VITE_API_URL as string;
 //    );
 //  };
 
-const List: React.FC<ListProps> = ({ listName, books}) => {
 
+const List: React.FC<ListProps> = ({ listName, books}) => {
+   const [isModalOpen, setModalOpen] = useState(false);
+
+   const handleCloseModal = () => {
+       setModalOpen(false);
+     };
+
+   //   const handleSubmit = (editedBook: Book) => {
+   //     axios
+   //       .put(`${API}/books/${id}`, editedBook)
+   //       .then(
+   //         () => {
+   //        setModalOpen(false)
+   
+   //       })
+   //       .catch((error) => console.error(error));
+   // }
 
 const handleDelete = (id: number | undefined) =>{
    if(id!== undefined){
@@ -52,9 +70,10 @@ const deleteBook = (id: number) => {
                <h3>{book.title}</h3>
                <p className='author'><i>by {book.author}</i></p>
                <div className='item-buttons'>
-               <button  onClick={() => setModal(!open)}>Edit</button>
+               <button  onClick={() => setModalOpen(!isModalOpen)} className="open-modal-button">Edit</button>
                <button onClick={()=>handleDelete(book.id)}>Delete</button>
                </div>
+               <ModalEditForm book={book} handleModal={handleCloseModal} isModelOpen={isModalOpen} />
             </div>
          );
       })}

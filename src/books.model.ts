@@ -1,5 +1,8 @@
 import { ReactNode } from "react";
 
+export const API: string = import.meta.env.VITE_API_URL as string;
+
+
 export interface ErrorBoundaryProps {
     fallback: React.ReactNode;
     children: React.ReactNode;
@@ -53,7 +56,7 @@ export interface ErrorBoundaryProps {
   }
   
 
-
+ 
   
 
  
