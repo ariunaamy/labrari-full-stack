@@ -5,7 +5,6 @@ import { ListProps } from 'books.model';
 import { useState } from 'react';
 import axios from 'axios';
 import ModalEditForm from './ModalEditForm';
-import { Book } from 'books.model';
 import { API } from 'books.model';
 
 
@@ -25,9 +24,9 @@ import { API } from 'books.model';
 const List: React.FC<ListProps> = ({ listName, books}) => {
    const [isModalOpen, setModalOpen] = useState(false);
 
-   const handleCloseModal = () => {
-       setModalOpen(false);
-     };
+   // const handleCloseModal = () => {
+   //     setModalOpen(false);
+   //   };
 
    //   const handleSubmit = (editedBook: Book) => {
    //     axios
@@ -73,7 +72,7 @@ const deleteBook = (id: number) => {
                <button  onClick={() => setModalOpen(!isModalOpen)} className="open-modal-button">Edit</button>
                <button onClick={()=>handleDelete(book.id)}>Delete</button>
                </div>
-               <ModalEditForm book={book} handleModal={handleCloseModal} isModelOpen={isModalOpen} />
+               <ModalEditForm book={book} isModelOpen={isModalOpen} />
             </div>
          );
       })}

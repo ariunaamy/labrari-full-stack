@@ -47,7 +47,12 @@ export interface ErrorBoundaryProps {
     isOpen: boolean;
   }
 
-  export interface ModalFormProps {
+  export interface ModalEditFormProps {
+    isModelOpen: boolean;
+    book: Book; 
+  }
+
+  export interface ModalNewFormProps {
     handleModal: () => void;
     isModelOpen: boolean;
     onSubmit: (book:Book)=>void;

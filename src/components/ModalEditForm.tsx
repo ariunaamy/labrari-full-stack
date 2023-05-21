@@ -1,20 +1,20 @@
-import { useEffect, useState, useCallback } from 'react';
+import {useState} from 'react';
 import Modal from './Modal';
-import { ChosenBook, Book, ModalFormProps} from 'books.model';
+import {ModalEditFormProps} from 'books.model';
 import axios from 'axios';
 import { API } from 'books.model';
 
 
 
 
-const ModalEditForm: React.FC<ModalFormProps> = ({ onSubmit, book, isModelOpen }) => {
+const ModalEditForm: React.FC<ModalEditFormProps> = ({ book, isModelOpen }) => {
 
   const [editedBook, setEditedBook] = useState({
     title: book.title,
     author: book.author,
     year_published: book.year_published,
     status: book.status,
-    reader_notes: book.notes,
+    reader_notes: book.reader_notes,
     recommend_to: book.recommend_to,
   })
 

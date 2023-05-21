@@ -1,12 +1,12 @@
 import { useEffect, useState, useCallback } from 'react';
 import Modal from './Modal';
-import { ChosenBook, Book, ModalFormProps} from 'books.model';
+import { ChosenBook, Book, ModalNewFormProps} from 'books.model';
 
 
 
 
 
-const ModalForm: React.FC<ModalFormProps> = ({ onSubmit, isModelOpen, list, chosenBook }) => {
+const ModalForm: React.FC<ModalNewFormProps> = ({ onSubmit, isModelOpen, list, chosenBook }) => {
 
   const getBook = useCallback(
     function getBook(book:ChosenBook|null):Book{

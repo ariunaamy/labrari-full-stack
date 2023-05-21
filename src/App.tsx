@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ModalNewForm from 'components/ModalNewForm';
-import ModalEditForm from 'components/ModalEditForm'
 import Search from 'components/Search';
 import Profile from 'components/Profile';
-import Header from 'components/Header';
 import Lists from 'components/Lists';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.scss';

@@ -2,9 +2,6 @@ import { ListsProps } from "books.model";
 import List from "./List";
 
 
-
-const API: string = import.meta.env.VITE_API_URL as string;
-
 const Lists: React.FC<ListsProps> = ({books}) => {
    
 
