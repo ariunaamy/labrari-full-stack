@@ -1,44 +1,15 @@
 import React from 'react';
-//import buttonStyles from 'components/button/Button.module.scss';
-//import Button from "./button/Button";
 import { ListProps } from 'books.model';
 import { useState } from 'react';
 import axios from 'axios';
 import ModalEditForm from './ModalEditForm';
 import { API } from 'books.model';
 
-
-
-
-// const AlertWindow: React.FC<{ onConfirm: () => void }> = ({ onConfirm }) => {
-//    return (
-//      <div className="alert-window">
-//        <h2>Are you sure?</h2>
-//        <p>This action cannot be undone.</p>
-//        <button onClick={onConfirm}>Confirm</button>
-//      </div>
-//    );
-//  };
-
-
 const List: React.FC<ListProps> = ({ listName, books}) => {
    const [isModalOpen, setModalOpen] = useState(false);
+   const [showMore, setShowMore] = useState(false)
 
-   // const handleCloseModal = () => {
-   //     setModalOpen(false);
-   //   };
-
-   //   const handleSubmit = (editedBook: Book) => {
-   //     axios
-   //       .put(`${API}/books/${id}`, editedBook)
-   //       .then(
-   //         () => {
-   //        setModalOpen(false)
    
-   //       })
-   //       .catch((error) => console.error(error));
-   // }
-
 const handleDelete = (id: number | undefined) =>{
    if(id!== undefined){
       const confirmDelete = window.confirm("Are you sure you want to delete this book?");
@@ -61,13 +32,18 @@ const deleteBook = (id: number) => {
 
 }
   return (
-    <div className="list">
+   <div className="list">
       <h1 className='list-title'>{listName}</h1>
+     {books.length === 1 ? (<p className='books-quantity'><strong>one</strong> book in this list</p>) : (<p className='books-quantity'><strong>{books.length}</strong> books in this list</p>) }
       {books.map((book,index) => {
          return (
             <div key={index} className='list-item'>
-               <h3>{book.title}</h3>
+               <button className='book-title' onClick={()=>setShowMore(!showMore)}>{book.title}</button>
                <p className='author'><i>by {book.author}</i></p>
+               {showMore ? (<section className='book-info'>
+                  <p>{book.reader_notes}</p>
+                  </section>)
+                   : null}
                <div className='item-buttons'>
                <button  onClick={() => setModalOpen(!isModalOpen)} className="open-modal-button">Edit</button>
                <button onClick={()=>handleDelete(book.id)}>Delete</button>
@@ -76,7 +52,6 @@ const deleteBook = (id: number) => {
             </div>
          );
       })}
-      {/* <Button value="add"/> */}
     </div>
   );
 };

@@ -62,9 +62,6 @@ const Search: React.FC<SearchProps> = ({ setModal, open, setList, chosenBook, se
             <div>
               <h2>{chosenBook ? chosenBook.volumeInfo.title : null}</h2>
               <p>{chosenBook ? chosenBook.volumeInfo.authors[0] : null}</p>
-              <button onClick={() => setModal(!open)} className="open-modal-button">
-                Add to List
-              </button>
               <br></br>
               <img src={chosenBook?.volumeInfo.imageLinks.smallThumbnail} width="100" alt="Book cover" />
               <br />
@@ -77,6 +74,9 @@ const Search: React.FC<SearchProps> = ({ setModal, open, setList, chosenBook, se
                   <option value="reading">reading</option>
                   <option value="wish">wish list</option>
                 </select>
+                <button onClick={() => setModal(!open)} className="open-modal-button">
+                Add to List
+              </button>
               </div>
             </div>
         )}
