@@ -81,7 +81,7 @@ const ModalEditForm: React.FC<ModalEditFormProps> = ({ book, isModelOpen }) => {
           value={editedBook.recommend_to} 
           onChange={handleTextChange} 
           id="recommend_to" />
-          <input type="submit" value="Submit" />
+          <input className="button" type="submit" value="Submit" />
         </form>
       </Modal>
     </div>

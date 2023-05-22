@@ -63,12 +63,12 @@ const Search: React.FC<SearchProps> = ({ setModal, open, setList, chosenBook, se
               <h2>{chosenBook ? chosenBook.volumeInfo.title : null}</h2>
               <p>{chosenBook ? chosenBook.volumeInfo.authors[0] : null}</p>
               <br></br>
-              <img src={chosenBook?.volumeInfo.imageLinks.smallThumbnail} width="100" alt="Book cover" />
+              <img src={chosenBook?.volumeInfo.imageLinks.smallThumbnail} width="200" alt="Book cover" />
               <br />
               <a href={chosenBook?.volumeInfo.infoLink}>Buy</a>
               <br />
               <div className="select-wrapper">
-                <label htmlFor="modal-select">Add to list: </label>
+                <label htmlFor="modal-select">choose a list: </label>
                 <select id="modal-select" className="modal-select" onChange={handleOptionChange}>
                   <option value="read">read</option>
                   <option value="reading">reading</option>
