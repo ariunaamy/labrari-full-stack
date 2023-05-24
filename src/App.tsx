@@ -10,8 +10,11 @@ import { Book, ChosenBook, ErrorBoundaryProps } from 'books.model';
 import SignIn  from 'components/auth/SignIn';
 import SignUp from 'components/auth/SignUp';
 import AuthDetails from 'components/auth/AuthDetails';
-import { AuthCredential } from 'firebase/auth';
+import { AuthCredential, onAuthStateChanged } from 'firebase/auth';
 import { AuthUser } from 'books.model';
+import { auth } from 'firebase'
+import labrari from "./public/labrari"
+
 
 
 
@@ -57,7 +60,12 @@ function App() {
   }, []);
 
   useEffect(()=>{
-    
+    const signOut = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => {
+      signOut();
+    }
 
   },[])
 
@@ -80,13 +88,8 @@ function App() {
   return (
     <ErrorBoundary fallback={<div>Something went wrong.</div>}>
       <div className="app">
-        {AuthCredential ? "hello": null}
-        <div>
-        <SignIn/>
-        <SignUp/>
-        </div>
-        
-        <AuthDetails/>
+        {user ?  
+        <>
         <Router>
           <div className="sidebar">
             <Search setModal={setModalOpen} open={isModalOpen} setList={setSelectedList} chosenBook={chosenBook} setChosenBook={setChosenBook} />
@@ -98,7 +101,17 @@ function App() {
                 <Route path="/" element={<Lists books={books}/>} />
               </Routes>
           </main>    
-        </Router>
+        </Router></> : 
+        <div className='landing-page'>
+          <div className='sign-in'>
+        <SignIn/>
+        <SignUp/>
+        </div>
+        <img src='../public/labrari.png' alt='logo'/>
+        </div> 
+        }
+        
+       
       </div>
     </ErrorBoundary>
   );

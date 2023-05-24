@@ -18,7 +18,7 @@ const SignUp = () => {
     }
 
     return (
-        <div className="sign-in-container">
+        <div className="sign-in-container">  
             <form onSubmit={signUp}>
                 <h1>Create Account</h1>
                 <input 
@@ -27,12 +27,15 @@ const SignUp = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
+                <br></br>
                 <input
                     type="password"
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                <br></br>
+                <br></br>
                 <button type="submit">Sign Up</button>
             </form>
         </div>

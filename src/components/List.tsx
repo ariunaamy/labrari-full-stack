@@ -38,14 +38,14 @@ const deleteBook = (id: number) => {
       {books.map((book,index) => {
          return (
             <div key={index} className='list-item'>
-               <button className='book-title' onClick={()=>setShowMore(!showMore)}>{book.title}</button>
+               <p className='book-title' onClick={()=>setShowMore(!showMore)}>{book.title}</p>
                <p className='author'><i>by {book.author}</i></p>
                {showMore ? (<section className='book-info'>
                   <p>{book.reader_notes}</p>
                   </section>)
                    : null}
                <div className='item-buttons'>
-               <button  onClick={() => setModalOpen(!isModalOpen)} className="open-modal-button">Edit</button>
+               <button onClick={() => setModalOpen(!isModalOpen)} className="open-modal-button">Edit</button>
                <button onClick={()=>handleDelete(book.id)}>Delete</button>
                </div>
                <ModalEditForm book={book} isModelOpen={isModalOpen} />

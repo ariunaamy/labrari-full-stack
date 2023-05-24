@@ -32,10 +32,10 @@ const AuthDetails: React.FC = () => {
             console.log(error))
     }
   return (
-    <div>
+    <div className="username">
         {authUser ? 
         <>
-        <p>Signed In as {authUser.email}</p>
+        <p>{authUser.email}</p>
         <button onClick={userSignOut}>Sign Out</button>
         </>
          : <p>Signed Out</p>}
