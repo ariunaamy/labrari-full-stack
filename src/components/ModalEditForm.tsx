@@ -18,9 +18,6 @@ const ModalEditForm: React.FC<ModalEditFormProps> = ({ book, isModelOpen }) => {
     recommend_to: book.recommend_to,
   })
 
-  console.log(book.id)
-     
-
   const  handleTextChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setEditedBook({
       ...editedBook,

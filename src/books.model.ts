@@ -59,6 +59,10 @@ export interface ErrorBoundaryProps {
     list: string;
     chosenBook: ChosenBook | null;
   }
+
+  export interface AuthUser {
+    email:string;
+  }
   
 
  

@@ -7,6 +7,12 @@ import Lists from 'components/Lists';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.scss';
 import { Book, ChosenBook, ErrorBoundaryProps } from 'books.model';
+import SignIn  from 'components/auth/SignIn';
+import SignUp from 'components/auth/SignUp';
+import AuthDetails from 'components/auth/AuthDetails';
+import { AuthCredential } from 'firebase/auth';
+import { AuthUser } from 'books.model';
+
 
 
 const API: string = import.meta.env.VITE_API_URL as string;
@@ -35,6 +41,9 @@ function App() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [books, setBooks] = useState<Book[]>([]);
   const [chosenBook, setChosenBook] = useState<ChosenBook | null>(null);
+  // Auth 
+  const [user, setUser] = useState<AuthUser | null>(null);
+
 
   useEffect(() => {
     axios
@@ -46,6 +55,11 @@ function App() {
         console.warn('catch', e);
       });
   }, []);
+
+  useEffect(()=>{
+    
+
+  },[])
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -66,6 +80,13 @@ function App() {
   return (
     <ErrorBoundary fallback={<div>Something went wrong.</div>}>
       <div className="app">
+        {AuthCredential ? "hello": null}
+        <div>
+        <SignIn/>
+        <SignUp/>
+        </div>
+        
+        <AuthDetails/>
         <Router>
           <div className="sidebar">
             <Search setModal={setModalOpen} open={isModalOpen} setList={setSelectedList} chosenBook={chosenBook} setChosenBook={setChosenBook} />
